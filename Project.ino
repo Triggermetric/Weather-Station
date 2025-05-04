@@ -13,12 +13,12 @@
 
 String HOST = "api.thingspeak.com";
 String PORT = "80";
-String AP = "Nhat Nguyen";
-String PASS = "23052005";
+String AP = "XXXXX"; // Your AP here
+String PASS = "XXXXX"; // Your password here
 
 int successOrder = 0;
 
-String API = "SO327RN27QVDCP4N";
+String API = "XXXXXXX"; // Your write API on thingspeak here
 String field = "field1";
 
 Adafruit_BMP085 bmp;
@@ -72,7 +72,7 @@ void loop() {
    didSetH = true;
   }
 
-  if (millis() - tmr >= 30*60*1000ul) {
+  if (millis() - tmr >= 30*60*1000ul) { // Updates pressure every 30 minutes, 3 hours interval
     tmr = millis();
     cond.addP(pressure, temp);
     Serial.println(cond.getCast());
@@ -113,12 +113,6 @@ void loop() {
   }
 }
 
-// boolean SendCommand(String cmd, String ack){
-//   mySerial.println(cmd); // Send "AT+" command to module
-//   if (!echoFind(ack)) // timed out waiting for ack string
-//     return true; // ack blank or ack found
-// }
-
 boolean sendDataESP(float temp, float humid, float pressure)
 {
   String s_tmp = String(temp);
@@ -135,9 +129,8 @@ boolean sendDataESP(float temp, float humid, float pressure)
     + 4
     );
 
-  //sendCommand("AT+CIFSR", "OK", 5);
   boolean success = false;
-  //GET /v2/ipgeo?apiKey=0c06cb995e0c40dd82dfc630c3c6365c&ip=116.98.1.53&fields=location.latitude&fields=location.longitude
+
   switch (successOrder) {
     case 0: success = sendCommand("AT", "OK", 5);break;
     case 1: success = sendCommand("AT+RST", "OK", 10);break;
